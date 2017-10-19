@@ -80,7 +80,10 @@ resource "aws_instance" "puppet-agent" {
     depends_on = ["aws_security_group.allow-ssh"]
     subnet_id = "${module.nat-mod.aws_subnet_public_id_1}"
     vpc_security_group_ids = ["${aws_security_group.allow-ssh.id}"]
-
+    root_block_device {
+      volume_size = "8"
+      delete_on_termination = true
+    }
     tags {
         Name = "PuppetAgent"
       }
